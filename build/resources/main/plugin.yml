@@ -1,0 +1,9 @@
+name: AnCDK
+version: '1.0'
+main: com.xiaoan.ancdk.AnCDK
+api-version: 1.15
+authors: [ Xiao_an ]
+website: xiaoanovo.com
+commands:
+  ancdk:
+    description: "获取插件帮助"
