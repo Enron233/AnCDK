@@ -11,6 +11,9 @@ public final class AnCDK extends JavaPlugin {
         ins = this;
         saveDefaultConfig();
         Bukkit.getPluginCommand("ancdk").setExecutor(new Acommand());
+        int pluginId = 14378; // <-- Replace with the id of your plugin!
+        Metrics metrics = new Metrics(this, pluginId);
+        metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
         this.getLogger().info("§a我是小安，感谢你使用这款§4CDK§a插件");
         this.getLogger().info("§a插件已经成功运行！");
         this.getLogger().info(" \n" +

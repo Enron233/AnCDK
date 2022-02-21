@@ -21,5 +21,10 @@
       <option name="name" value="spigotmc-repo" />
       <option name="url" value="https://hub.spigotmc.org/nexus/content/repositories/snapshots/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="cstats-public" />
+      <option name="name" value="cstats-public" />
+      <option name="url" value="https://repo.mcage.cn/repository/maven-releases/" />
+    </remote-repository>
   </component>
 </project>

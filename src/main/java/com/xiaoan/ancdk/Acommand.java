@@ -18,6 +18,7 @@ public class Acommand implements CommandExecutor {
             if (p.hasPermission("ancdk.admin")){
                 p.sendMessage("§a==============================AnCDK==============================");
                 p.sendMessage("§9/ancdk create [command] [num]    创建[num]个执行[command]命令的CDK");
+                p.sendMessage("§9/ancdk reload                    重载配置文件");
                 p.sendMessage("§9/ancdk [CDK]                     使用CDK");
                 p.sendMessage("§a==============================AnCDK==============================");
             }else {
@@ -25,7 +26,7 @@ public class Acommand implements CommandExecutor {
                 p.sendMessage("§9/ancdk [CDK]                     使用CDK");
                 p.sendMessage("§a==============================AnCDK==============================");
             }
-        }else if (args[0].equalsIgnoreCase("create")){
+        }else if (args[0].equalsIgnoreCase("create") && p.hasPermission("ancdk.admin")){
             if (args.length >=3){
                 int num = Integer.parseInt(args[args.length - 1]);
                 for (int i = 0; i < num; i++){
@@ -34,11 +35,17 @@ public class Acommand implements CommandExecutor {
                     AnCDK.getIns().getConfig().set(key + ".op", true);
                     AnCDK.getIns().saveConfig();
                 }
-                p.sendMessage("§6设置成功！成功创建§c" + num + "§6张卡密, 详情请浏览配置文件");
+                p.sendMessage("§6设置成功！成功创建§c " + num + " §6张卡密, 详情请浏览配置文件");
             }else {
                 p.sendMessage("§4参数不足！");
             }
         }else if (args.length == 1){
+            if (args[0].equalsIgnoreCase("reload") && p.hasPermission("ancdk.admin")){
+                a.reloadConfig();
+                a.saveConfig();
+                p.sendMessage("§6配置文件重载成功！");
+                return true;
+            }
             String input = args[0];
             for (String li : AnCDK.getIns().getConfig().getKeys(false)){
                 if (input.equals(li)){
@@ -52,6 +59,8 @@ public class Acommand implements CommandExecutor {
                 }
             }
             p.sendMessage("§4CDK不存在！");
+        }else {
+            p.sendMessage("§4指令是不是打错了？？？");
         }
         return true;
     }
