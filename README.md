@@ -59,7 +59,10 @@
 [![](https://s2.loli.net/2022/02/20/z2hRmLHdtKkB83x.png)](https://s2.loli.net/2022/02/20/z2hRmLHdtKkB83x.png)
 
 ## 插件下载
-[https://enron.lanzouv.com/ix93s00cy9of](https://enron.lanzouv.com/ix93s00cy9of "https://enron.lanzouv.com/ix93s00cy9of")
+
+https://enron.lanzouv.com/b00pee79a
+
+密码:giih
 ## 开源地址
 
 [https://github.com/Enron233/AnCDK](https://github.com/Enron233/AnCDK "https://github.com/Enron233/AnCDK")
