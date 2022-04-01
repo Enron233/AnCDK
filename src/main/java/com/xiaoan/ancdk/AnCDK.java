@@ -1,15 +1,28 @@
 package com.xiaoan.ancdk;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 
 
 public final class AnCDK extends JavaPlugin {
+    public File file = new File(getDataFolder(), "Export.yml");
+    public static YamlConfiguration filec;
     @Override
     public void onEnable() {
         ins = this;
         saveDefaultConfig();
+        if (!file.exists()){
+            try {
+                Boolean resp = file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        filec = YamlConfiguration.loadConfiguration(file);
         Bukkit.getPluginCommand("ancdk").setExecutor(new Acommand());
         int pluginId = 14378; // <-- Replace with the id of your plugin!
         Metrics metrics = new Metrics(this, pluginId);

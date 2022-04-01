@@ -6,7 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Array;
+import java.io.IOException;
+import java.util.Set;
 
 
 public class Acommand implements CommandExecutor {
@@ -18,6 +19,7 @@ public class Acommand implements CommandExecutor {
             if (p.hasPermission("ancdk.admin")){
                 p.sendMessage("§a==============================AnCDK==============================");
                 p.sendMessage("§9/ancdk create [command] [num]    创建[num]个执行[command]命令的CDK");
+                p.sendMessage("§9/ancdk export                    批量一键导出所有CDK");
                 p.sendMessage("§9/ancdk reload                    重载配置文件");
                 p.sendMessage("§9/ancdk [CDK]                     使用CDK");
                 p.sendMessage("§a==============================AnCDK==============================");
@@ -44,6 +46,18 @@ public class Acommand implements CommandExecutor {
                 a.reloadConfig();
                 a.saveConfig();
                 p.sendMessage("§6配置文件重载成功！");
+                return true;
+            }
+            if (args[0].equalsIgnoreCase("export") && p.hasPermission("ancdk.admin")){
+                try {
+                    if (exportCDK()){
+                        p.sendMessage("§6导出成功！请检查配置文件中export.yml");
+                    }else {
+                        p.sendMessage("§c在导出过程中发生错误！请检查！");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
             String input = args[0];
@@ -80,5 +94,16 @@ public class Acommand implements CommandExecutor {
             result = player.performCommand(command);
         }
         return result;
+    }
+    private static boolean exportCDK() throws IOException {
+        Set<String> cdkList = AnCDK.getIns().getConfig().getKeys(false);
+        int i = 1;
+        for (String cdk : cdkList) {
+            String path = AnCDK.getIns().getConfig().getString(cdk + ".command");
+            AnCDK.filec.set(path + "." + i, cdk);
+            AnCDK.filec.save(AnCDK.getIns().file);
+            i ++;
+        }
+        return true;
     }
 }
