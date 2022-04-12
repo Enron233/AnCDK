@@ -10,7 +10,8 @@ import java.io.IOException;
 
 public final class AnCDK extends JavaPlugin {
     public File file = new File(getDataFolder(), "Export.yml");
-    public static YamlConfiguration filec;
+    public File used = new File(getDataFolder(), "Log.yml");
+    public static YamlConfiguration filec,uselog;
     @Override
     public void onEnable() {
         ins = this;
@@ -22,7 +23,15 @@ public final class AnCDK extends JavaPlugin {
                 e.printStackTrace();
             }
         }
+        if (!used.exists()){
+            try {
+                Boolean usedNewFile = used.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         filec = YamlConfiguration.loadConfiguration(file);
+        uselog = YamlConfiguration.loadConfiguration(used);
         Bukkit.getPluginCommand("ancdk").setExecutor(new Acommand());
         int pluginId = 14378; // <-- Replace with the id of your plugin!
         Metrics metrics = new Metrics(this, pluginId);

@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -35,6 +37,7 @@ public class Acommand implements CommandExecutor {
                     String key = GetCDK.getCDK();
                     AnCDK.getIns().getConfig().set(key + ".command", getCommand(args));
                     AnCDK.getIns().getConfig().set(key + ".op", true);
+                    AnCDK.getIns().getConfig().set(key + ".only", true);
                     AnCDK.getIns().saveConfig();
                 }
                 p.sendMessage("§6设置成功！成功创建§c " + num + " §6张卡密, 详情请浏览配置文件");
@@ -65,9 +68,17 @@ public class Acommand implements CommandExecutor {
                 if (input.equals(li)){
                     boolean resp = runCDK(li, p);
                     if (resp){
-                        a.getConfig().set(li, null);
-                        a.saveConfig();
+                        if (AnCDK.getIns().getConfig().getBoolean(li + ".only")) {
+                            a.getConfig().set(li, null);
+                            a.saveConfig();
+                        }
+                        try {
+                            setLog(li, p);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         p.sendMessage("§6命令执行成功！");
+
                     }
                     return true;
                 }
@@ -105,5 +116,12 @@ public class Acommand implements CommandExecutor {
             i ++;
         }
         return true;
+    }
+    private static void setLog(String cdk, Player user) throws IOException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        AnCDK.uselog.set(cdk + ".user", user.getName());
+        AnCDK.uselog.set(cdk + ".time", formatter.format(date));
+        AnCDK.uselog.save(AnCDK.getIns().used);
     }
 }
