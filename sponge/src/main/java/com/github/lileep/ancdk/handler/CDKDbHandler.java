@@ -37,7 +37,10 @@ public class CDKDbHandler extends AbstractCDKHandler {
                 return false;
             }
         }
-        runCDKCmd(command, player);
+        String[] commands = command.replace("{player}", player.getName()).split(";");
+        for (String s : commands) {
+            runCDKCmd(s, player);
+        }
         return true;
     }
 

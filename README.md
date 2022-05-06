@@ -38,7 +38,7 @@
 
 | 命令 | 功能 |
 | ---- | ---- |
-| /ancdk create <--once> [数量] [命令] | 创建`[数量]`个执行`[命令]`的CDK <br> 命令前可使用`console:`指定控制台执行 <br> 使用`--once`参数可让CDK为一次性，否则每个玩家均可使用一次此CDK |
+| /ancdk create <--once> [数量] [命令] | 创建`[数量]`个执行`[命令]`的CDK <br> 命令前可使用`console:`指定控制台执行 <br> 使用`--once`参数可让CDK为一次性，否则每个玩家均可使用一次此CDK <br> 一次执行多个命令可以使用`;`分隔 |
 | /ancdk export <csv> | 批量一键导出所有CDK。使用`csv`参数可以仅将所有cdkey导出为csv文件 |
 | /ancdk reload | 重载插件配置文件 |
 
