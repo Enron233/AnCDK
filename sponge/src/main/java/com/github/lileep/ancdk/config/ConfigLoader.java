@@ -5,6 +5,7 @@ import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import org.spongepowered.api.Sponge;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,19 +21,32 @@ public class ConfigLoader {
     }
 
     private ConfigurationLoader<CommentedConfigurationNode> loader;
+    private ConfigurationLoader<CommentedConfigurationNode> langLoader;
+    private ConfigurationLoader<CommentedConfigurationNode> cdkLoader;
     private ConfigurationLoader<CommentedConfigurationNode> exportLoader;
-    private ConfigurationLoader<CommentedConfigurationNode> loggerLoader;
 
     private ConfigurationNode rootNode;
+    private ConfigurationNode langNode;
+    private ConfigurationNode cdkNode;
     private ConfigurationNode exportNode;
-    private ConfigurationNode loggerNode;
 
-    public ConfigurationLoader<CommentedConfigurationNode> getLoader() {
-        return this.loader;
-    }
+    private boolean useDB = false;
+    private File logFile;
 
     public ConfigurationNode getRootNode() {
         return this.rootNode;
+    }
+
+    public ConfigurationNode getLangNode() {
+        return langNode;
+    }
+
+    public ConfigurationLoader<CommentedConfigurationNode> getCdkLoader() {
+        return this.cdkLoader;
+    }
+
+    public ConfigurationNode getCdkNode() {
+        return this.cdkNode;
     }
 
     public ConfigurationLoader<CommentedConfigurationNode> getExportLoader() {
@@ -43,24 +57,29 @@ public class ConfigLoader {
         return this.exportNode;
     }
 
-    public ConfigurationLoader<CommentedConfigurationNode> getLoggerLoader() {
-        return this.loggerLoader;
+    public boolean isUseDB() {
+        return useDB;
     }
 
-    public ConfigurationNode getLoggerNode() {
-        return this.loggerNode;
+    public File getLogFile() {
+        return logFile;
     }
 
-    public void reload(){
+    public void reload() {
         try {
             rootNode = loader.load();
             loader.save(rootNode);
 
+            langNode = langLoader.load();
+            langLoader.save(langNode);
+
+            if (!useDB) {
+                cdkNode = cdkLoader.load();
+                cdkLoader.save(cdkNode);
+            }
+
             exportNode = exportLoader.load();
             exportLoader.save(exportNode);
-
-            loggerNode = loggerLoader.load();
-            loggerLoader.save(loggerNode);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,12 +95,46 @@ public class ConfigLoader {
             }
         }
         try {
+            //Load blank config
+            Sponge.getAssetManager()
+                    .getAsset(AnCDK.getInstance().getPluginContainer(), "ancdk.conf")
+                    .get()
+                    .copyToDirectory(configPath.toPath());
+
             loader = HoconConfigurationLoader
                     .builder()
-                    .setFile(new File(configPath, "cdks.conf"))
+                    .setFile(new File(configPath, "ancdk.conf"))
                     .build();
             rootNode = loader.load();
+            //Auto add new settings
+            rootNode.mergeValuesFrom(
+                    HoconConfigurationLoader.builder()
+                            .setURL(AnCDK.getInstance().getPluginContainer().getAsset("ancdk.conf").get().getUrl())
+                            .build().load()
+            );
             loader.save(rootNode);
+
+            Sponge.getAssetManager()
+                    .getAsset(AnCDK.getInstance().getPluginContainer(), "lang/language.conf")
+                    .get()
+                    .copyToDirectory(configPath.toPath());
+            langLoader = HoconConfigurationLoader
+                    .builder()
+                    .setFile(new File(configPath, "language.conf"))
+                    .build();
+            langNode = langLoader.load();
+            langLoader.save(langNode);
+
+            if (rootNode.getNode("Database", "useDatabase").getBoolean()) {
+                useDB = true;
+            } else {
+                cdkLoader = HoconConfigurationLoader
+                        .builder()
+                        .setFile(new File(configPath, "cdks.conf"))
+                        .build();
+                cdkNode = cdkLoader.load();
+                cdkLoader.save(cdkNode);
+            }
 
             exportLoader = HoconConfigurationLoader
                     .builder()
@@ -90,17 +143,7 @@ public class ConfigLoader {
             exportNode = exportLoader.load();
             exportLoader.save(exportNode);
 
-            loggerLoader = HoconConfigurationLoader
-                    .builder()
-                    .setFile(new File(configPath, "info.log"))
-                    .build();
-            loggerNode = loggerLoader.load();
-            loggerLoader.save(loggerNode);
-
-            //            Sponge.getAssetManager()
-//                    .getAsset(AnCDK.getInstance().getPluginContainer(), "ancdk.conf")
-//                    .get()
-//                    .copyToFile(AnCDK.getInstance().getConfigPath());
+            logFile = new File(configPath, "info.log");
 
         } catch (IOException e) {
             e.printStackTrace();

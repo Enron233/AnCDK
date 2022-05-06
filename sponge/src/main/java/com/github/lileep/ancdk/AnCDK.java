@@ -2,6 +2,10 @@ package com.github.lileep.ancdk;
 
 import com.github.lileep.ancdk.command.ACommand;
 import com.github.lileep.ancdk.config.ConfigLoader;
+import com.github.lileep.ancdk.handler.CDKCfgHandler;
+import com.github.lileep.ancdk.handler.CDKDbHandler;
+import com.github.lileep.ancdk.handler.DatabaseHandler;
+import com.github.lileep.ancdk.handler.api.AbstractCDKHandler;
 import com.github.lileep.ancdk.lib.Reference;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
@@ -11,13 +15,14 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.plugin.PluginContainer;
 
 import java.io.File;
 
 @Plugin(
         id = Reference.PLUGIN_ID,
         name = Reference.PLUGIN_NAME,
-        description = "test",
+        description = "A sponge plugin that proc CDK",
         version = Reference.VERSION,
         authors = {"Enron233", "Lileep"}
 )
@@ -39,6 +44,11 @@ public class AnCDK {
     @ConfigDir(sharedRoot = false)
     private File dir;
 
+    @Inject
+    private PluginContainer pluginContainer;
+
+    private AbstractCDKHandler cdkHandler;
+
     public Logger getLogger() {
         return logger;
     }
@@ -47,11 +57,26 @@ public class AnCDK {
         return dir;
     }
 
+    public PluginContainer getPluginContainer() {
+        return pluginContainer;
+    }
+
+    public AbstractCDKHandler getCdkHandler() {
+        return cdkHandler;
+    }
+
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
         instance = this;
 
         new ConfigLoader();
+
+        if (ConfigLoader.getInstance().isUseDB()){
+            new DatabaseHandler();
+            cdkHandler = new CDKDbHandler();
+        } else {
+            cdkHandler = new CDKCfgHandler();
+        }
 
         Sponge.getCommandManager().register(getInstance(), ACommand.BASE, "ancdk", "ancdkey", "cdk", "cdkey");
 

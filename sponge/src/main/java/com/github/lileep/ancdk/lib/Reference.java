@@ -8,6 +8,8 @@ public class Reference {
 
     public static final String PREFIX = "§6[AnCDK]";
 
+    public static final String CONSOLE_PREFIX = "console:";
+
     public static final String USER_NODE = "user";
     public static final String ADMIN_NODE = "admin";
 
