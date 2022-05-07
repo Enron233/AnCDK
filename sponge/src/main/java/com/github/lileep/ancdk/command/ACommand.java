@@ -82,7 +82,7 @@ public class ACommand {
             CommandSpec.builder()
                     .executor(((src, args) -> {
                         if (args.getOne("cdkey") != Optional.empty()) {
-                            if (src instanceof Player && src.hasPermission(Reference.USER_NODE)) {
+                            if (src instanceof Player && src.hasPermission(Reference.PERM_NODE_USER)) {
                                 String cdkey = args.<String>getOne("cdkey").get();
                                 if (AnCDK.getInstance()
                                         .getCdkHandler()

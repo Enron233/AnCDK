@@ -20,7 +20,7 @@ tasks.withType(JavaCompile) {
 }
 
 group = 'com.github.lileep'
-version = '1.0'
+version = '1.0.1'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
@@ -63,4 +63,4 @@ jar {
     }
 }
 
-sponge.plugin.id = 'ancdk'
+sponge.plugin.id = 'ancdk_sponge'
