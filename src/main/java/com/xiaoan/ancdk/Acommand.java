@@ -37,7 +37,6 @@ public class Acommand implements CommandExecutor {
                     String key = GetCDK.getCDK();
                     AnCDK.getIns().getConfig().set(key + ".command", getCommand(args));
                     AnCDK.getIns().getConfig().set(key + ".op", true);
-                    AnCDK.getIns().getConfig().set(key + ".only", true);
                     AnCDK.getIns().saveConfig();
                 }
                 p.sendMessage("§6设置成功！成功创建§c " + num + " §6张卡密, 详情请浏览配置文件");
@@ -68,17 +67,9 @@ public class Acommand implements CommandExecutor {
                 if (input.equals(li)){
                     boolean resp = runCDK(li, p);
                     if (resp){
-                        if (AnCDK.getIns().getConfig().getBoolean(li + ".only")) {
-                            a.getConfig().set(li, null);
-                            a.saveConfig();
-                        }
-                        try {
-                            setLog(li, p);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        a.getConfig().set(li, null);
+                        a.saveConfig();
                         p.sendMessage("§6命令执行成功！");
-
                     }
                     return true;
                 }

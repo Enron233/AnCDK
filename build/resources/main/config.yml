@@ -2,4 +2,7 @@
 #1ll73hur1bhm:                          # CDKey内容
 #  command: 'eco give {player} 100 '    # 使用CDK后要执行的指令
 #  op: true                             # 是否以OP（控制台）身份执行指令
+#  only: true                           # 设置CDK是否为消耗品（只能使用一次）
+# @！插件文件夹中的 Log.yml 为CDK使用记录，将会记录使用CDK的玩家以及使用时间！@
+# @！插件文件夹中的 Export.yml 为CDK导出列表，使用方法详见MCBBS介绍贴！@
 #插件作者：小安 QQ：286526681 有任何问题或者任何建议欢迎随时联系我哟~
