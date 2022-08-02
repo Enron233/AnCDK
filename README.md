@@ -130,11 +130,11 @@ Sponge端为`config/ancdk`目录下的`cdks.conf`
 
 3. 复制CDK发送给亲爱的玩家~~
 
-[![](https://s2.loli.net/2022/02/23/SUe6M8bZdnmOJj7.png)](https://s2.loli.net/2022/02/23/SUe6M8bZdnmOJj7.png)
+[![](https://s2.loli.net/2022/02/20/EuneWjSbaCNtsrV.png)](https://s2.loli.net/2022/02/20/EuneWjSbaCNtsrV.png)
 
 4. 亲爱的玩家到服务器使用命令“/ancdk [CDK]”使用CDK
 
-[![](https://s2.loli.net/2022/02/20/L1INUvGDcYpRSPy.png)](https://s2.loli.net/2022/02/20/L1INUvGDcYpRSPy.png)
+[![](https://s2.loli.net/2022/02/23/OaJIbGiLXNoYd1v.png)](https://s2.loli.net/2022/02/23/OaJIbGiLXNoYd1v.png)
 
 5. CDK使用成功！玩家很开心！
 
