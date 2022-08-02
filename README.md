@@ -120,17 +120,17 @@ Sponge配置文件示例（cdks.conf）：
 
 1. 使用命令“/ancdk create eco give {player} 100 10”批量生成CDK！
 
-[![](https://s2.loli.net/2022/02/20/7V8fLOdnK2EztXg.png)](https://s2.loli.net/2022/02/20/7V8fLOdnK2EztXg.png)
+[![](https://s2.loli.net/2022/02/20/7V8fLOdnK2EztXg.png)](https://s2.loli.net/2022/02/23/KRJFWUlHS5nwMf1.png)
 
 2. Bukkit/Spigot端到插件配置文件`“plugins/AnCDK”`目录下，打开Config.yml，获取CDK！
 
 Sponge端为`config/ancdk`目录下的`cdks.conf`
 
-[![](https://s2.loli.net/2022/02/20/8z91nwyL6lGihPF.png)](https://s2.loli.net/2022/02/20/8z91nwyL6lGihPF.png)
+[![](https://s2.loli.net/2022/02/20/8z91nwyL6lGihPF.png)](https://s2.loli.net/2022/02/23/SUe6M8bZdnmOJj7.png)
 
 3. 复制CDK发送给亲爱的玩家~~
 
-[![](https://s2.loli.net/2022/02/20/EuneWjSbaCNtsrV.png)](https://s2.loli.net/2022/02/20/EuneWjSbaCNtsrV.png)
+[![](https://s2.loli.net/2022/02/20/EuneWjSbaCNtsrV.png)](https://s2.loli.net/2022/02/23/SUe6M8bZdnmOJj7.png)
 
 4. 亲爱的玩家到服务器使用命令“/ancdk [CDK]”使用CDK
 
@@ -138,7 +138,7 @@ Sponge端为`config/ancdk`目录下的`cdks.conf`
 
 5. CDK使用成功！玩家很开心！
 
-[![](https://s2.loli.net/2022/02/20/z2hRmLHdtKkB83x.png)](https://s2.loli.net/2022/02/20/z2hRmLHdtKkB83x.png)
+[![](https://s2.loli.net/2022/02/20/z2hRmLHdtKkB83x.png)](https://s2.loli.net/2022/02/23/AEMrdykm5ntgjNv.png)
 
 ***
 
